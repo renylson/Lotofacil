@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Plano Lotofácil - Terças até Dezembro 2026</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #0f172a;
+        color: #e5e7eb;
+        margin: 0;
+        padding: 20px;
+    }
+    h1, h2 {
+        color: #38bdf8;
+    }
+    .container {
+        max-width: 1100px;
+        margin: auto;
+    }
+    .card {
+        background: #020617;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    }
+    .bets span {
+        display: inline-block;
+        background: #1e293b;
+        padding: 6px 10px;
+        margin: 4px;
+        border-radius: 6px;
+        font-weight: bold;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 10px;
+        border-bottom: 1px solid #334155;
+        text-align: center;
+    }
+    th {
+        background: #020617;
+    }
+    input {
+        width: 60px;
+        padding: 6px;
+        border-radius: 6px;
+        border: none;
+        text-align: center;
+    }
+    .summary span {
+        display: inline-block;
+        margin-right: 20px;
+        font-weight: bold;
+    }
+    footer {
+        text-align: center;
+        margin-top: 40px;
+        color: #94a3b8;
+    }
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<h1>📅 Plano Lotofácil – Terças até Dezembro 2026</h1>
+
+<div class="card">
+<h2>🎯 Apostas Fixas</h2>
+
+<strong>Aposta 1</strong>
+<div class="bets">
+<span>01</span><span>03</span><span>04</span><span>06</span><span>07</span><span>08</span>
+<span>09</span><span>12</span><span>13</span><span>15</span><span>16</span><span>17</span>
+<span>18</span><span>21</span><span>22</span><span>25</span>
+</div>
+
+<br>
+
+<strong>Aposta 2</strong>
+<div class="bets">
+<span>01</span><span>03</span><span>04</span><span>06</span><span>09</span><span>11</span>
+<span>12</span><span>13</span><span>15</span><span>16</span><span>17</span><span>18</span>
+<span>21</span><span>22</span><span>25</span>
+</div>
+</div>
+
+<div class="card">
+<h2>📝 Registro Semanal</h2>
+<table id="table">
+<thead>
+<tr>
+<th>Data</th>
+<th>Aposta 1</th>
+<th>Aposta 2</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</div>
+
+<div class="card summary">
+<h2>📊 Resumo Automático</h2>
+<span>13+: <strong id="s13">0</strong></span>
+<span>14: <strong id="s14">0</strong></span>
+<span>15: <strong id="s15">0</strong></span>
+</div>
+
+<div class="card">
+<h2>💡 Sugestões Estratégicas</h2>
+<ul>
+<li>Jogue sempre no mesmo dia para manter disciplina</li>
+<li>Evite mudar números antes de 8 concursos</li>
+<li>Após 14 ou 15 pontos, pause 1 semana para análise</li>
+<li>Use esse histórico para decidir quando reforçar ou reduzir apostas</li>
+</ul>
+</div>
+
+<footer>
+Plano pessoal Lotofácil • Estratégia consciente • Até Dezembro 2026
+</footer>
+
+</div>
+
+<script>
+function gerarTercas() {
+    const tbody = document.querySelector("#table tbody");
+    let data = new Date("2025-01-01");
+    const fim = new Date("2026-12-31");
+
+    while (data.getDay() !== 2) data.setDate(data.getDate() + 1);
+
+    let index = 0;
+
+    while (data <= fim) {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>${data.toLocaleDateString()}</td>
+            <td><input type="number" min="0" max="15" data-i="${index}" data-a="1"></td>
+            <td><input type="number" min="0" max="15" data-i="${index}" data-a="2"></td>
+        `;
+        tbody.appendChild(tr);
+        data.setDate(data.getDate() + 7);
+        index++;
+    }
+}
+
+function atualizarResumo() {
+    let s13 = 0, s14 = 0, s15 = 0;
+    document.querySelectorAll("input").forEach(i => {
+        const v = parseInt(i.value);
+        if (v >= 13) s13++;
+        if (v === 14) s14++;
+        if (v === 15) s15++;
+    });
+    document.getElementById("s13").textContent = s13;
+    document.getElementById("s14").textContent = s14;
+    document.getElementById("s15").textContent = s15;
+}
+
+document.addEventListener("input", atualizarResumo);
+gerarTercas();
+</script>
+
+</body>
+</html>
