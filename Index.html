@@ -2,73 +2,77 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Plano Lotofácil - Terças até Dezembro 2026</title>
+<title>Controle Lotofácil até Dezembro 2026</title>
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        background: #0f172a;
-        color: #e5e7eb;
-        margin: 0;
-        padding: 20px;
-    }
-    h1, h2 {
-        color: #38bdf8;
-    }
-    .container {
-        max-width: 1100px;
-        margin: auto;
-    }
-    .card {
-        background: #020617;
-        border-radius: 12px;
-        padding: 20px;
-        margin-bottom: 20px;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-    }
-    .bets span {
-        display: inline-block;
-        background: #1e293b;
-        padding: 6px 10px;
-        margin: 4px;
-        border-radius: 6px;
-        font-weight: bold;
-    }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-    th, td {
-        padding: 10px;
-        border-bottom: 1px solid #334155;
-        text-align: center;
-    }
-    th {
-        background: #020617;
-    }
-    input {
-        width: 60px;
-        padding: 6px;
-        border-radius: 6px;
-        border: none;
-        text-align: center;
-    }
-    .summary span {
-        display: inline-block;
-        margin-right: 20px;
-        font-weight: bold;
-    }
-    footer {
-        text-align: center;
-        margin-top: 40px;
-        color: #94a3b8;
-    }
+body {
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: #e5e7eb;
+    padding: 20px;
+}
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+h1, h2 {
+    color: #38bdf8;
+}
+.card {
+    background: #020617;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.4);
+}
+.bets span {
+    display: inline-block;
+    background: #1e293b;
+    padding: 6px 10px;
+    margin: 4px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #334155;
+    text-align: center;
+}
+th {
+    background: #020617;
+}
+input[type="number"] {
+    width: 70px;
+    padding: 6px;
+    border-radius: 6px;
+    border: none;
+    text-align: center;
+}
+input[type="checkbox"] {
+    transform: scale(1.3);
+}
+.summary span {
+    display: inline-block;
+    margin-right: 30px;
+    font-weight: bold;
+}
+.positive { color: #22c55e; }
+.negative { color: #ef4444; }
+footer {
+    text-align: center;
+    margin-top: 30px;
+    color: #94a3b8;
+}
 </style>
 </head>
 
 <body>
 <div class="container">
 
-<h1>📅 Plano Lotofácil – Terças até Dezembro 2026</h1>
+<h1>📊 Controle Lotofácil – Terças até Dezembro 2026</h1>
 
 <div class="card">
 <h2>🎯 Apostas Fixas</h2>
@@ -92,78 +96,90 @@
 
 <div class="card">
 <h2>📝 Registro Semanal</h2>
-<table id="table">
+<table>
 <thead>
 <tr>
 <th>Data</th>
+<th>Apostei?</th>
 <th>Aposta 1</th>
 <th>Aposta 2</th>
+<th>Ganho (R$)</th>
 </tr>
 </thead>
-<tbody></tbody>
+<tbody id="tbody"></tbody>
 </table>
 </div>
 
 <div class="card summary">
-<h2>📊 Resumo Automático</h2>
-<span>13+: <strong id="s13">0</strong></span>
-<span>14: <strong id="s14">0</strong></span>
-<span>15: <strong id="s15">0</strong></span>
+<h2>📊 Resumo Geral</h2>
+<span>💸 Gasto: R$ <strong id="gasto">0.00</strong></span>
+<span>🏆 Ganho: R$ <strong id="ganho">0.00</strong></span>
+<span>📈 Saldo: R$ <strong id="saldo">0.00</strong></span>
 </div>
 
 <div class="card">
-<h2>💡 Sugestões Estratégicas</h2>
+<h2>💡 Boas Práticas</h2>
 <ul>
-<li>Jogue sempre no mesmo dia para manter disciplina</li>
+<li>Marque “Apostei” apenas quando realmente registrar o jogo</li>
 <li>Evite mudar números antes de 8 concursos</li>
-<li>Após 14 ou 15 pontos, pause 1 semana para análise</li>
-<li>Use esse histórico para decidir quando reforçar ou reduzir apostas</li>
+<li>Use o saldo para decidir pausas estratégicas</li>
+<li>Controle é mais importante que intuição</li>
 </ul>
 </div>
 
 <footer>
-Plano pessoal Lotofácil • Estratégia consciente • Até Dezembro 2026
+Controle pessoal Lotofácil • Estratégia consciente • Offline
 </footer>
 
 </div>
 
 <script>
+const CUSTO_SEMANAL = 112;
+
 function gerarTercas() {
-    const tbody = document.querySelector("#table tbody");
+    const tbody = document.getElementById("tbody");
     let data = new Date("2025-01-01");
     const fim = new Date("2026-12-31");
 
     while (data.getDay() !== 2) data.setDate(data.getDate() + 1);
 
-    let index = 0;
-
     while (data <= fim) {
         const tr = document.createElement("tr");
         tr.innerHTML = `
             <td>${data.toLocaleDateString()}</td>
-            <td><input type="number" min="0" max="15" data-i="${index}" data-a="1"></td>
-            <td><input type="number" min="0" max="15" data-i="${index}" data-a="2"></td>
+            <td><input type="checkbox" class="apostei"></td>
+            <td><input type="number" min="0" max="15"></td>
+            <td><input type="number" min="0" max="15"></td>
+            <td><input type="number" min="0" step="0.01" class="ganho"></td>
         `;
         tbody.appendChild(tr);
         data.setDate(data.getDate() + 7);
-        index++;
     }
 }
 
 function atualizarResumo() {
-    let s13 = 0, s14 = 0, s15 = 0;
-    document.querySelectorAll("input").forEach(i => {
-        const v = parseInt(i.value);
-        if (v >= 13) s13++;
-        if (v === 14) s14++;
-        if (v === 15) s15++;
+    let gasto = 0;
+    let ganho = 0;
+
+    document.querySelectorAll("tr").forEach(tr => {
+        const check = tr.querySelector(".apostei");
+        const ganhoInput = tr.querySelector(".ganho");
+        if (check && check.checked) gasto += CUSTO_SEMANAL;
+        if (ganhoInput && ganhoInput.value) ganho += parseFloat(ganhoInput.value);
     });
-    document.getElementById("s13").textContent = s13;
-    document.getElementById("s14").textContent = s14;
-    document.getElementById("s15").textContent = s15;
+
+    const saldo = ganho - gasto;
+    document.getElementById("gasto").textContent = gasto.toFixed(2);
+    document.getElementById("ganho").textContent = ganho.toFixed(2);
+
+    const saldoEl = document.getElementById("saldo");
+    saldoEl.textContent = saldo.toFixed(2);
+    saldoEl.className = saldo >= 0 ? "positive" : "negative";
 }
 
 document.addEventListener("input", atualizarResumo);
+document.addEventListener("change", atualizarResumo);
+
 gerarTercas();
 </script>
 
